@@ -6,6 +6,7 @@ import {
 import { BenefitType, SelectedPage } from "@/shared/types";
 import { motion } from "framer-motion";
 import HText from "@/shared/HText";
+import Benefit from "./Benefit";
 
 const benefits: Array<BenefitType> = [
   {
@@ -28,6 +29,13 @@ const benefits: Array<BenefitType> = [
   },
 ];
 
+const container = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.2 },
+  },
+};
+
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
 };
@@ -48,7 +56,13 @@ const Benefits = ({ setSelectedPage }: Props) => {
           </p>
         </div>
         {/* Benefits */}
-        <div className="mt-5 items-center justify-between gap-8 md:flex">
+        <motion.div
+          className="mt-5 items-center justify-between gap-8 md:flex"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={container}
+        >
           {benefits.map((benefit: BenefitType) => (
             <Benefit
               key={benefit.title}
@@ -58,7 +72,7 @@ const Benefits = ({ setSelectedPage }: Props) => {
               setSelectedPage={setSelectedPage}
             />
           ))}
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );
