@@ -75,7 +75,7 @@ const ContactUs = ({ setSelectedPage }: Props) => {
               action="https://formsubmit.co/areq12x@gmail.com"
             >
               <input
-                className="w-full rounded-lg bg-primary-300 py-3 px-5 placeholder-white"
+                className="mb-5 w-full rounded-lg bg-primary-300 py-3 px-5 placeholder-white"
                 type="text"
                 placeholder="NAME"
                 {...register("name", {
@@ -89,7 +89,71 @@ const ContactUs = ({ setSelectedPage }: Props) => {
                   {errors.name.type == "maxLength" && "Max length is 100 char"}
                 </p>
               )}
+
+              <input
+                className="mb-5 w-full rounded-lg bg-primary-300 py-3 px-5 placeholder-white"
+                type="text"
+                placeholder="EMAIL"
+                {...register("email", {
+                  required: true,
+                  pattern: /^[A-Z0-0._%+-]+@[A-Z0-9.-]+\[A-Z]{2,}$/i,
+                })}
+              />
+              {errors.email && (
+                <p className="mt-1 text-primary-500">
+                  {errors.email.type == "required" && "This field is required"}
+                  {errors.email.type == "pattern" && "Invalid email adress"}
+                </p>
+              )}
+
+              <textarea
+                className="mb-5 w-full rounded-lg bg-primary-300 py-3 px-5 placeholder-white"
+                rows={4}
+                cols={50}
+                placeholder="MESSAGE"
+                {...register("message", {
+                  required: true,
+                  maxLength: 2000,
+                })}
+              />
+              {errors.message && (
+                <p className="mt-1 text-primary-500">
+                  {errors.message.type == "required" &&
+                    "This field is required"}
+                  {errors.message.type == "maxLength" &&
+                    "Max length is 2000 char"}
+                </p>
+              )}
+              <button
+                type="submit"
+                className="tranistion mt-5 rounded-lg bg-secondary-500 px-20 py-3 duration-500 hover:text-white"
+              >
+                SUBMIT
+              </button>
             </form>
+          </motion.div>
+
+          <motion.div
+            className="relative mt-16 basis-2/5 md:mt-0"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+            variants={{
+              hidden: { opacity: 0, x: -50 },
+              visible: {
+                opacity: 1,
+                x: 0,
+              },
+            }}
+          >
+            <div className="w-full before:absolute before:-bottom-20 before:-right-10 before:z-[-1] md:before:content-evolvetext">
+              <img
+                src={ContacUsPageGraphic}
+                alt="contact-us-pagegraphic"
+                className="w-full"
+              />
+            </div>
           </motion.div>
         </div>
       </motion.div>
